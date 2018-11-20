@@ -1,19 +1,20 @@
 <template>
-    <div>
-        <el-form id="form" :rules="rules" ref="form" :model="form" label-width="80px">
-            <el-form-item label="用户名" prop="username">
-                <el-input v-model="form.username" autofocus="autofocus"></el-input>
-            </el-form-item>
-            <el-form-item label="密码" prop="password">
-                <el-input v-model="form.password" type="password"></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="onSubmit">登录</el-button>
-            </el-form-item>
-        </el-form>
-    </div>
+  <div>
+    <el-form id="form" :rules="rules" ref="form" :model="form" label-width="80px">
+      <el-form-item label="用户名" prop="username">
+        <el-input v-model="form.username" autofocus="autofocus"></el-input>
+      </el-form-item>
+      <el-form-item label="密码" prop="password">
+        <el-input v-model="form.password" type="password"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">登录</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
 <script>
+import apiLogin from "../api/login";
 export default {
   data() {
     return {
@@ -43,6 +44,10 @@ export default {
         if (valid) {
           const username = this.form.username;
           const password = this.form.password;
+          apiLogin({
+            username: username,
+            password: password
+          });
           console.log("submit:" + username + ":" + password);
         } else {
           return false;
