@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
-import Auth from "./plugins/auth";
+import auth from "./plugins/auth";
 Vue.use(Router);
 
 const router = new Router({
@@ -35,7 +35,7 @@ router.beforeEach((to, from, next) => {
     next();
     return;
   }
-  if (Auth.isLogin()) {
+  if (auth.isLogin()) {
     next();
     // 已经登录处理
     return;
