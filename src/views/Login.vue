@@ -1,8 +1,8 @@
 <template>
   <div>
-    <el-form id="form" :rules="rules" ref="form" :model="form" label-width="80px">
+    <el-form id="form" :rules="rules" ref="form" :model="form" label-width="80px" @keyup.enter.native="onSubmit">
       <el-form-item label="用户名" prop="username">
-        <el-input v-model="form.username" autofocus="autofocus"></el-input>
+        <el-input v-model="form.username" focus="true" autofocus="autofocus"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input v-model="form.password" type="password"></el-input>
@@ -14,13 +14,15 @@
   </div>
 </template>
 <script>
-import apiLogin from "../api/login";
+import auth from "../plugins/auth";
+import axios from "../plugins/axios";
 export default {
   data() {
     return {
       form: {
         username: "",
-        password: ""
+        password: "",
+        errorMessage: ""
       },
       rules: {
         username: [
@@ -44,11 +46,22 @@ export default {
         if (valid) {
           const username = this.form.username;
           const password = this.form.password;
-          apiLogin({
-            username: username,
-            password: password
-          });
-          console.log("submit:" + username + ":" + password);
+          axios
+            .post("/login", {
+              username: username,
+              password: password
+            })
+            .then(response => {
+              const token = response.data.token;
+              auth.setToken(token);
+              this.$router.push("/");
+            })
+            .catch(error => {
+              this.$message({
+                message: error.response.data.message,
+                type: "error"
+              });
+            });
         } else {
           return false;
         }
@@ -59,9 +72,11 @@ export default {
 </script>
 <style>
 #form {
+  /* background-color: gray; */
   width: 400px;
   position: fixed;
-  top: 50%;
+  top: 30%;
   left: 50%;
+  margin-left: -200px;
 }
 </style>

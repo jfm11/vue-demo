@@ -31,11 +31,13 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.name === "login") {
+    // 登录界面，不用控制
     next();
     return;
   }
   if (Auth.isLogin()) {
     next();
+    // 已经登录处理
     return;
   }
   const date = new Date();
