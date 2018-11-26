@@ -14,7 +14,6 @@
   </div>
 </template>
 <script>
-import auth from "../plugins/auth";
 import axios from "../plugins/axios";
 export default {
   data() {
@@ -53,7 +52,7 @@ export default {
             })
             .then(response => {
               const token = response.data.token;
-              auth.setToken(token);
+              this.$store.commit("login", token);
               this.$router.push("/");
             })
             .catch(error => {
