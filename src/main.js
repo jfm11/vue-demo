@@ -19,17 +19,7 @@ router.beforeEach((to, from, next) => {
     // 已经登录处理
     return;
   }
-  const date = new Date();
-  console.log(
-    date.getHours() +
-      ":" +
-      date.getMinutes() +
-      ":" +
-      date.getSeconds() +
-      "-" +
-      "还未登录"
-  );
-  router.push("login");
+  router.push("/login");
   next();
 });
 

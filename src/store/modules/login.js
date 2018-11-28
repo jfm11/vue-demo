@@ -1,30 +1,27 @@
 const localStorage = window.localStorage;
 
+function getToken() {
+  return localStorage.getItem("token");
+}
+
+function setToken(token) {
+  localStorage.setItem("token", token);
+}
+
 export default {
-  state: {
-    token: {
-      get: () => {
-        return localStorage.getItem("token");
-      },
-      set: token => {
-        console.log("set:" + token);
-        localStorage.setItem("token", token);
-      }
-    }
-  },
+  state: {},
   getters: {
     isLogin: state => {
-      const token = state.token.get();
+      const token = getToken();
       return token !== null && token !== "no-login";
     }
   },
   mutations: {
     login: (state, token) => {
-      state.token = token;
+      setToken(token);
     },
     logout: state => {
-      //   Console.log(state.token);
-      state.token.set("no-login");
+      setToken("no-login");
     }
   }
 };
