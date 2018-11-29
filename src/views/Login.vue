@@ -15,6 +15,16 @@
 </template>
 <script>
 import axios from "../plugins/axios";
+
+function getErrMsg(error) {
+  const status = error.response.status;
+  if (status == 200) {
+    return error.response.data.message;
+  } else {
+    return "服务端异常[" + status + "]";
+  }
+}
+
 export default {
   data() {
     return {
@@ -56,8 +66,9 @@ export default {
               this.$router.push("/");
             })
             .catch(error => {
+              const errMsg = getErrMsg(error);
               this.$message({
-                message: error.response.data.message,
+                message: errMsg,
                 type: "error"
               });
             });
