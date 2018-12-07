@@ -10,7 +10,7 @@
 
 <script>
 // @ is an alias to /src
-import SideBar from "../components/SideBar";
+import SideBar from "@/components/SideBar";
 export default {
   name: "home",
   methods: {
