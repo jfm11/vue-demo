@@ -9,6 +9,7 @@ Vue.use(ElementUI);
 Vue.config.productionTip = false;
 
 router.beforeEach((to, from, next) => {
+  // console.log(to);
   if (to.name === "login") {
     // 登录界面，不用控制
     next();
@@ -19,8 +20,7 @@ router.beforeEach((to, from, next) => {
     // 已经登录处理
     return;
   }
-  router.push("/login");
-  next();
+  next("/login");
 });
 
 new Vue({

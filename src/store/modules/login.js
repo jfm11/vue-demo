@@ -11,16 +11,16 @@ function setToken(token) {
 export default {
   state: {},
   getters: {
-    isLogin: state => {
+    isLogin: () => {
       const token = getToken();
       return token !== null && token !== "no-login";
     }
   },
   mutations: {
-    login: (state, token) => {
+    login: (_, token) => {
       setToken(token);
     },
-    logout: state => {
+    logout: () => {
       setToken("no-login");
     }
   }
