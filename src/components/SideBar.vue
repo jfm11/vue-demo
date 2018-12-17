@@ -11,21 +11,24 @@
         <template slot="title">我的工作台</template>
         <el-menu-item index="2-1">客户端模拟</el-menu-item>
       </el-submenu>
-      <el-menu-item index="3">登出</el-menu-item>
+      <el-menu-item index="/logout">登出</el-menu-item>
     </el-menu>
   </div>
 </template>
 <script>
+import LoginUtil from "@/plugins/login-util";
 export default {
   data() {
     return {
-      activeIndex: "1",
-      activeIndex2: "1"
+      activeIndex: "1"
     };
   },
   methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+    handleSelect(key) {
+      if (key === "/logout") {
+        LoginUtil.logout();
+        this.$router.replace("/login");
+      }
     }
   }
 };

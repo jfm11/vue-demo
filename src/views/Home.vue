@@ -4,7 +4,6 @@
     <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     welcome
     <SideBar />
-    <el-button @click="onLogout">登出</el-button>
   </div>
 </template>
 
@@ -13,12 +12,7 @@
 import SideBar from "@/components/SideBar";
 export default {
   name: "home",
-  methods: {
-    onLogout() {
-      this.$store.commit("logout");
-      this.$router.replace("/login");
-    }
-  },
+  methods: {},
   components: { SideBar }
 };
 </script>

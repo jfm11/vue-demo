@@ -4,6 +4,7 @@ import router from "./router";
 import store from "@/store/index";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
+import LoginUtil from "@/plugins/login-util";
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
@@ -15,7 +16,7 @@ router.beforeEach((to, from, next) => {
     next();
     return;
   }
-  if (store.getters.isLogin) {
+  if (LoginUtil.isLogin()) {
     next();
     // 已经登录处理
     return;

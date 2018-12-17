@@ -1,19 +1,44 @@
 <template>
   <div>
-    <el-form id="form" :rules="rules" ref="form" :model="form" label-width="80px" @submit.native.prevent>
-      <el-form-item label="用户名" prop="username">
-        <el-input v-model="form.username" focus="true" autofocus="autofocus"></el-input>
+    <el-form
+      id="form"
+      :rules="rules"
+      ref="form"
+      :model="form"
+      label-width="80px"
+      @submit.native.prevent
+    >
+      <el-form-item
+        label="用户名"
+        prop="username"
+      >
+        <el-input
+          v-model="form.username"
+          focus="true"
+          autofocus="autofocus"
+        ></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input v-model="form.password" type="password"></el-input>
+      <el-form-item
+        label="密码"
+        prop="password"
+      >
+        <el-input
+          v-model="form.password"
+          type="password"
+        ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit" native-type="submit">登录</el-button>
+        <el-button
+          type="primary"
+          @click="onSubmit"
+          native-type="submit"
+        >登录</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 <script>
+import LoginUtil from "@/plugins/login-util";
 import axios from "../plugins/axios";
 
 function getErrMsg(error) {
@@ -62,7 +87,7 @@ export default {
             })
             .then(response => {
               const token = response.data.token;
-              this.$store.commit("login", token);
+              LoginUtil.login(token);
               this.$router.push("/");
             })
             .catch(error => {
