@@ -6,11 +6,25 @@
       mode="horizontal"
       @select="handleSelect"
     >
-      <el-menu-item index="1">首页</el-menu-item>
-      <el-submenu index="2">
-        <template slot="title">我的工作台</template>
-        <el-menu-item index="2-1">客户端模拟</el-menu-item>
-      </el-submenu>
+      <template v-for="menu in menus">
+        <el-submenu
+          :key="menu.index"
+          :index="menu.index"
+          v-if="menu.children && menu.children.length>0"
+        ><template slot="title">{{menu.name}}</template>
+          <template v-for="subMenu in menu.children">
+            <el-menu-item
+              :key="subMenu.index"
+              :index="subMenu.index"
+            >{{subMenu.name}}</el-menu-item>
+          </template>
+        </el-submenu>
+        <el-menu-item
+          :key="menu.index"
+          :index="menu.index"
+          v-else
+        >{{menu.name}}</el-menu-item>
+      </template>
       <el-menu-item index="/logout">登出</el-menu-item>
     </el-menu>
   </div>
@@ -20,7 +34,20 @@ import LoginUtil from "@/plugins/login-util";
 export default {
   data() {
     return {
-      activeIndex: "1"
+      activeIndex: "/home",
+      menus: [
+        {
+          index: "/home",
+          name: "首页",
+          hasChild: false
+        },
+        {
+          index: "",
+          name: "我的工作台",
+          hasChild: true,
+          children: [{ index: "/mock-client", name: "模拟客户端" }]
+        }
+      ]
     };
   },
   methods: {
