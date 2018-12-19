@@ -6,7 +6,8 @@
       mode="horizontal"
       @select="handleSelect"
     >
-      <template v-for="menu in menus">
+      <template v-for="menu in menuList">
+        <!-- 子菜单加载 -->
         <el-submenu
           :key="menu.index"
           :index="menu.index"
@@ -19,6 +20,7 @@
             >{{subMenu.name}}</el-menu-item>
           </template>
         </el-submenu>
+        <!-- 普通菜单加载 -->
         <el-menu-item
           :key="menu.index"
           :index="menu.index"
@@ -31,6 +33,7 @@
 </template>
 <script>
 import LoginUtil from "@/plugins/login-util";
+import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -38,25 +41,28 @@ export default {
       menus: [
         {
           index: "/home",
-          name: "首页",
-          hasChild: false
+          name: "首页"
         },
         {
           index: "",
           name: "我的工作台",
-          hasChild: true,
           children: [{ index: "/mock-client", name: "模拟客户端" }]
         }
       ]
     };
   },
+  computed: {
+    ...mapState("menu", ["menuList"])
+  },
   methods: {
     handleSelect(key) {
       if (key === "/logout") {
         LoginUtil.logout();
+        this.$store.commit("menu/cleanMenuList");
         this.$router.replace("/login");
       }
-    }
+    },
+    ...mapMutations("menu", ["cleanMenuList"])
   }
 };
 </script>

@@ -16,12 +16,20 @@ router.beforeEach((to, from, next) => {
     next();
     return;
   }
-  if (LoginUtil.isLogin()) {
-    next();
-    // 已经登录处理
+  if (!LoginUtil.isLogin()) {
+    // 还未登录
+    next("/login");
     return;
   }
-  next("/login");
+  if (store.state.menu.menuList.length === 0) {
+    store.dispatch("menu/fetch").then(() => {
+      next();
+    });
+    return;
+  }
+  next();
+  // 已经登录处理
+  return;
 });
 
 new Vue({
