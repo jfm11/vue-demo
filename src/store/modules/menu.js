@@ -13,12 +13,16 @@ export default {
     setMenuList: (state, menuList) => {
       state.menuList = menuList;
     },
-    cleanMenuList: state => {
+    setCurMenu: (state, curMenu) => {
+      state.curMenu = curMenu;
+    },
+    clean: state => {
       state.menuList = [];
+      state.curMenu = "/";
     }
   },
   actions: {
-    fetch: ({ commit }) => {
+    fetch: async ({ commit }) => {
       const data = [
         {
           index: "/home",
@@ -30,8 +34,7 @@ export default {
           children: [{ index: "/mock-client", name: "模拟客户端" }]
         }
       ];
-      setTimeout(() => {
-        console.log("dd");
+      await setTimeout(() => {
         commit("setMenuList", data);
       }, 1000);
     }
