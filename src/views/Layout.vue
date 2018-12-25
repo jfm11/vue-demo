@@ -1,6 +1,6 @@
 <template>
   <div
-    v-loading.fullscreen="menuList.length === 0"
+    v-loading.fullscreen="loading"
     element-loading-text="拼命加载中"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0.8)"
@@ -11,7 +11,7 @@
       :curMenu="curMenu"
       :menuList="menuList"
     />
-    <router-view v-if="menuList.length > 0" />
+    <router-view v-if="!loading" />
   </div>
 </template>
 
@@ -21,9 +21,8 @@ import SideBar from "@/components/SideBar";
 import { mapState } from "vuex";
 export default {
   computed: {
-    ...mapState("menu", ["curMenu", "menuList"])
+    ...mapState("menu", ["curMenu", "menuList", "loading"])
   },
-  methods: {},
   components: { SideBar }
 };
 </script>

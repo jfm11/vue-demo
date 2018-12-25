@@ -6,7 +6,8 @@ export default {
   namespaced: true,
   state: {
     menuList: [],
-    curMenu: origCurMenu
+    curMenu: origCurMenu,
+    loading: false
   },
   getters: {
     nonEmpty: state => {
@@ -24,10 +25,14 @@ export default {
     clean: state => {
       state.menuList = [];
       state.curMenu = "/";
+    },
+    loading: (state, loading) => {
+      state.loading = loading;
     }
   },
   actions: {
     fetch: ({ commit }) => {
+      commit("loading", true);
       const data = [
         {
           index: "/",
@@ -42,6 +47,7 @@ export default {
       new Promise(resolve => {
         setTimeout(() => {
           commit("setMenuList", data);
+          commit("loading", false);
           resolve();
         }, 1000);
       });
