@@ -1,11 +1,11 @@
-const localStorage = window.localStorage;
+const storage = window.sessionStorage;
 
 function getToken() {
-  return localStorage.getItem("token");
+  return storage.getItem("token");
 }
 
 function setToken(token) {
-  localStorage.setItem("token", token);
+  storage.setItem("token", token);
 }
 const LoginUtil = {
   isLogin: () => {

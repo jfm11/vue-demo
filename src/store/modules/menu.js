@@ -1,8 +1,12 @@
+const sessionStorage = window.sessionStorage;
+
+const origCurMenu = sessionStorage.getItem("curMenu");
+
 export default {
   namespaced: true,
   state: {
     menuList: [],
-    curMenu: "/"
+    curMenu: origCurMenu
   },
   getters: {
     nonEmpty: state => {
@@ -15,6 +19,7 @@ export default {
     },
     setCurMenu: (state, curMenu) => {
       state.curMenu = curMenu;
+      sessionStorage.setItem("curMenu", curMenu);
     },
     clean: state => {
       state.menuList = [];

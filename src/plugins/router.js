@@ -49,6 +49,9 @@ router.beforeEach((to, from, next) => {
     });
     return;
   }
+  // 保存目标地址
+  store.commit("menu/setCurMenu", to.path);
+
   next();
   // 已经登录处理
   return;

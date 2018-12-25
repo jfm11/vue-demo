@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-menu
-      :default-active="activeIndex"
+      :default-active="curMenu"
       class="el-menu-demo"
       mode="horizontal"
       @select="handleSelect"
@@ -35,24 +35,8 @@
 import LoginUtil from "@/plugins/login-util";
 import { mapState, mapMutations } from "vuex";
 export default {
-  data() {
-    return {
-      activeIndex: "/",
-      menus: [
-        {
-          index: "/",
-          name: "首页"
-        },
-        {
-          index: "",
-          name: "我的工作台",
-          children: [{ index: "/mock-client", name: "模拟客户端" }]
-        }
-      ]
-    };
-  },
   computed: {
-    ...mapState("menu", ["menuList"])
+    ...mapState("menu", ["curMenu", "menuList"])
   },
   methods: {
     handleSelect(key) {
