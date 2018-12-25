@@ -7,7 +7,10 @@
   >
     <!-- <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <SideBar />
+    <SideBar
+      :curMenu="curMenu"
+      :menuList="menuList"
+    />
     <router-view v-if="menuList.length > 0" />
   </div>
 </template>
@@ -18,7 +21,7 @@ import SideBar from "@/components/SideBar";
 import { mapState } from "vuex";
 export default {
   computed: {
-    ...mapState("menu", ["menuList"])
+    ...mapState("menu", ["curMenu", "menuList"])
   },
   methods: {},
   components: { SideBar }

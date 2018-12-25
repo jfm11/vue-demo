@@ -33,10 +33,11 @@
 </template>
 <script>
 import LoginUtil from "@/plugins/login-util";
-import { mapState, mapMutations } from "vuex";
+import { mapMutations } from "vuex";
 export default {
-  computed: {
-    ...mapState("menu", ["curMenu", "menuList"])
+  props: {
+    curMenu: String,
+    menuList: Array
   },
   methods: {
     handleSelect(key) {
