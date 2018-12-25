@@ -22,10 +22,10 @@ export default {
     }
   },
   actions: {
-    fetch: async ({ commit }) => {
+    fetch: ({ commit }) => {
       const data = [
         {
-          index: "/home",
+          index: "/",
           name: "首页"
         },
         {
@@ -34,9 +34,12 @@ export default {
           children: [{ index: "/mock-client", name: "模拟客户端" }]
         }
       ];
-      await setTimeout(() => {
-        commit("setMenuList", data);
-      }, 1000);
+      new Promise(resolve => {
+        setTimeout(() => {
+          commit("setMenuList", data);
+          resolve();
+        }, 1000);
+      });
     }
   }
 };

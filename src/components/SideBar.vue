@@ -37,10 +37,10 @@ import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      activeIndex: "/home",
+      activeIndex: "/",
       menus: [
         {
-          index: "/home",
+          index: "/",
           name: "首页"
         },
         {
@@ -58,11 +58,13 @@ export default {
     handleSelect(key) {
       if (key === "/logout") {
         LoginUtil.logout();
-        this.$store.commit("menu/cleanMenuList");
+        this.$store.commit("menu/clean");
         this.$router.replace("/login");
+      } else {
+        this.$router.push(key);
       }
     },
-    ...mapMutations("menu", ["cleanMenuList"])
+    ...mapMutations("menu", ["clean"])
   }
 };
 </script>

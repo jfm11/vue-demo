@@ -1,32 +1,32 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "@/views/Home.vue";
+import Layout from "@/views/Layout.vue";
 import Login from "@/views/Login.vue";
 import store from "@/store/index";
 import LoginUtil from "@/plugins/login-util";
-
 Vue.use(Router);
 
 const router = new Router({
   routes: [
     {
-      path: "/",
-      name: "home",
-      component: Home
+      path: "",
+      name: "",
+      component: Layout,
+      children: [
+        {
+          path: "/",
+          component: () => import("@/views/home/index.vue")
+        },
+        {
+          path: "/mock-client",
+          component: () => import("@/views/mock-client/index.vue")
+        }
+      ]
     },
     {
       path: "/login",
       name: "login",
       component: Login
-    },
-    {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ "@/views/About.vue")
     }
   ]
 });
