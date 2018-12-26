@@ -4,6 +4,9 @@ module.exports = {
     proxy: {
       "/login": {
         target: "http://localhost:8081"
+      },
+      "/menu/fetch": {
+        target: "http://localhost:8081"
       }
     }
   }
